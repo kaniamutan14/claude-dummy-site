@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚧 barely.exists</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%230a0a10'/><ellipse cx='16' cy='14' rx='8.5' ry='7.5' fill='%2300f5a0'/><rect x='10' y='18.5' width='12' height='6' rx='1' fill='%2300f5a0'/><ellipse cx='12.5' cy='14' rx='2.5' ry='2.5' fill='%230a0a10'/><ellipse cx='19.5' cy='14' rx='2.5' ry='2.5' fill='%230a0a10'/><ellipse cx='16' cy='18.5' rx='1.2' ry='1' fill='%230a0a10'/><rect x='11' y='22' width='2' height='3' rx='.5' fill='%230a0a10'/><rect x='15' y='22' width='2' height='3' rx='.5' fill='%230a0a10'/><rect x='19' y='22' width='2' height='3' rx='.5' fill='%230a0a10'/></svg>">
+<style>
+:root{--bg:#080810;--bg2:#0f0f1a;--neon:#00f5a0;--neon2:#00d9f5;--neon3:#f500c8;--text:#e8e8f0;--muted:#66668a;--glass:rgba(255,255,255,0.05);--gb:rgba(255,255,255,0.09)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
+.stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d) var(--dl) infinite}
+@keyframes twinkle{0%,100%{opacity:var(--op)}50%{opacity:.05}}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.9rem 2rem;background:rgba(8,8,16,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--gb)}
+.nav-logo{font-size:1.15rem;font-weight:900;background:linear-gradient(135deg,var(--neon),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer}
+.nav-links{display:flex;gap:.3rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.88rem;padding:.4rem .85rem;border-radius:7px;transition:all .2s;cursor:pointer;display:block}
+.nav-links a:hover{color:var(--neon);background:rgba(0,245,160,.1)}
+.page{display:none;min-height:100vh;position:relative;z-index:1;padding-top:70px}
+.page.active{display:flex;flex-direction:column;align-items:center;justify-content:center;animation:pageIn .4s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero{text-align:center;padding:2rem;max-width:780px;width:100%}
+.badge{display:inline-flex;align-items:center;gap:.6rem;background:var(--glass);border:1px solid var(--gb);border-radius:50px;padding:.45rem 1.1rem;font-size:.82rem;color:var(--neon);margin-bottom:1.8rem;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.hard-hat{font-size:1.8rem;cursor:pointer;transition:transform .15s;user-select:none;display:inline-block}
+.hard-hat:hover{transform:rotate(-15deg) scale(1.2)}
+.hard-hat.shake{animation:shake .45s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px) rotate(-12deg)}40%{transform:translateX(9px) rotate(12deg)}60%{transform:translateX(-6px) rotate(-7deg)}80%{transform:translateX(6px) rotate(7deg)}}
+.main-title{font-size:clamp(2.8rem,8vw,5.5rem);font-weight:900;line-height:1.05;margin-bottom:1rem;background:linear-gradient(140deg,#fff 0%,var(--neon2) 50%,var(--neon) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative}
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;background:linear-gradient(140deg,#fff 0%,var(--neon2) 50%,var(--neon) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.glitch::before{animation:g1 5s infinite;clip-path:polygon(0 0,100% 0,100% 33%,0 33%)}
+.glitch::after{animation:g2 5s infinite;clip-path:polygon(0 67%,100% 67%,100% 100%,0 100%)}
+@keyframes g1{0%,88%,100%{transform:none;opacity:0}90%{transform:translateX(-5px);opacity:1}92%{transform:translateX(5px);opacity:1}94%{transform:none;opacity:0}}
+@keyframes g2{0%,88%,100%{transform:none;opacity:0}89%{transform:translateX(5px);opacity:1}91%{transform:translateX(-5px);opacity:1}93%{transform:none;opacity:0}}
+.subtitle{font-size:1.05rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.7}
+.sassy-box{background:var(--glass);border:1px solid var(--gb);border-radius:14px;padding:1rem 1.5rem;margin-bottom:2.2rem;min-height:56px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+.sassy-msg{font-size:.98rem;color:var(--neon2);font-style:italic;animation:fadeM .5s ease}
+@keyframes fadeM{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.progress-section{width:100%;max-width:500px;margin:0 auto 1rem}
+.progress-label{display:flex;justify-content:space-between;margin-bottom:.5rem;font-size:.83rem;color:var(--muted)}
+.pct{font-weight:700;transition:color .4s}
+.progress-wrap{background:rgba(255,255,255,.07);border-radius:50px;height:18px;overflow:hidden;cursor:pointer;position:relative;border:1px solid var(--gb);user-select:none}
+.progress-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--neon),var(--neon2));transition:width .75s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;min-width:2px}
+.progress-fill::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);animation:shimmer 2s infinite}
+@keyframes shimmer{0%{left:-100%}100%{left:100%}}
+.progress-hint{font-size:.74rem;color:var(--muted);margin-top:.45rem;text-align:center;opacity:.65;transition:all .3s}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(110px);background:rgba(15,15,26,.96);border:1px solid var(--gb);border-radius:12px;padding:.75rem 1.4rem;font-size:.88rem;color:var(--text);z-index:999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);max-width:88vw;text-align:center;backdrop-filter:blur(20px);box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.sub-page-content{text-align:center;padding:2rem;max-width:600px}
+.sub-emoji{font-size:4.5rem;margin-bottom:1rem;display:block;animation:float 3s ease-in-out infinite}
+.sub-title{font-size:clamp(1.5rem,5vw,2.4rem);font-weight:800;margin-bottom:1rem;background:linear-gradient(135deg,var(--neon3),var(--neon2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub-desc{color:var(--muted);font-size:1rem;line-height:1.75;margin-bottom:2rem}
+.back-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#000;border:none;padding:.75rem 1.5rem;border-radius:50px;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s}
+.back-btn:hover{transform:scale(1.06);box-shadow:0 0 22px rgba(0,245,160,.4)}
+.easter-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,8,16,.97);z-index:500;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .4s}
+.easter-overlay.show{opacity:1;pointer-events:all}
+.easter-title{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem}
+.easter-text{color:var(--muted);font-size:1rem;line-height:1.75;max-width:420px}
+body.meltdown{animation:melt .45s ease infinite alternate}
+@keyframes melt{0%{filter:hue-rotate(0deg) saturate(1)}100%{filter:hue-rotate(200deg) saturate(4)}}
+.hidden-link{position:fixed;bottom:.9rem;right:1rem;font-size:.55rem;color:rgba(255,255,255,.025);cursor:pointer;user-select:none;z-index:50;transition:color .4s;letter-spacing:.05em}
+.hidden-link:hover{color:var(--neon3)}
+.confetti-wrap{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:200;overflow:hidden}
+.cp{position:absolute;top:-20px;animation:cfall linear forwards}
+@keyframes cfall{to{transform:translateY(110vh) rotate(760deg);opacity:0}}
+.hl{color:var(--neon);font-weight:600}
+.hl2{color:var(--neon2);font-weight:600}
+.hl3{color:var(--neon3);font-weight:600}
+@media(max-width:600px){.nav-links{display:none}}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<nav>
+  <div class="nav-logo" onclick="goTo('home')">🚧 barely.exists</div>
+  <ul class="nav-links">
+    <li><a onclick="goTo('about')">About</a></li>
+    <li><a onclick="goTo('blog')">Blog</a></li>
+    <li><a onclick="goTo('contact')">Contact</a></li>
+    <li><a onclick="goTo('shop')">Shop</a></li>
+    <li><a onclick="goTo('portfolio')">Portfolio</a></li>
+  </ul>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<div class="easter-overlay" id="easterOverlay">
+  <div class="easter-title" id="easterTitle"></div>
+  <div class="easter-text" id="easterText"></div>
+  <br><br>
+  <button class="back-btn" onclick="closeEaster()">← Close this secret</button>
+</div>
+
+<div class="confetti-wrap" id="confettiWrap"></div>
+<div class="hidden-link" onclick="triggerHidden()">you found me</div>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="badge">
+      <span class="hard-hat" id="hardHat" onclick="hitHardHat()">👷</span>
+      <span>We're building something... probably</span>
+    </div>
+    <h1 class="main-title">
+      <span class="glitch" data-text="Under">Under</span><br>Construction
+    </h1>
+    <p class="subtitle">
+      Our developers are hard at work.<br>
+      <span class="hl2">Just kidding.</span> They're watching YouTube tutorials on how to build websites.
+    </p>
+    <div class="sassy-box">
+      <p class="sassy-msg" id="sassyMsg">Loading existential crisis…</p>
+    </div>
+    <div class="progress-section">
+      <div class="progress-label">
+        <span>Website Completion</span>
+        <span class="pct" id="pctLabel">0%</span>
+      </div>
+      <div class="progress-wrap" id="progressWrap" onclick="clickProgress()" ondblclick="dblClickProgress()" title="Don't click this">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <p class="progress-hint" id="progressHint">Click to "help" with development 👆</p>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="sub-page-content">
+    <span class="sub-emoji">🪞</span>
+    <h2 class="sub-title">About us? We barely know ourselves.</h2>
+    <p class="sub-desc">
+      We're a group of highly caffeinated individuals who had the audacity to register a domain name before having a single idea.<br><br>
+      Our "About" page is still being written. Our therapist says this is a metaphor for <span class="hl">avoiding commitment.</span><br><br>
+      Estimated completion: <span class="hl2">sometime before the heat death of the universe.</span> We're optimistic.
+    </p>
+    <button class="back-btn" onclick="goTo('home')">← Take me back</button>
+  </div>
+</div>
+
+<!-- BLOG -->
+<div class="page" id="page-blog">
+  <div class="sub-page-content">
+    <span class="sub-emoji">📝</span>
+    <h2 class="sub-title">0 posts. Matching our overall progress.</h2>
+    <p class="sub-desc">
+      We have a lot of thoughts. None of them are written down. Some aren't even fully formed yet.<br><br>
+      Our blog currently contains <span class="hl3">zero articles, zero insights, and zero regrets.</span><br><br>
+      Subscribe to our newsletter to be the first to know when absolutely nothing gets posted. We promise to ignore your inbox promptly.
+    </p>
+    <button class="back-btn" onclick="goTo('home')">← Get me out of here</button>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <div class="sub-page-content">
+    <span class="sub-emoji">📞</span>
+    <h2 class="sub-title">Contact who, exactly?</h2>
+    <p class="sub-desc">
+      Our contact form is under construction. Our email is under construction. Our phone number is <span class="hl">three construction workers in a trench coat.</span><br><br>
+      If this is urgent, try screaming into the void. Same response time, better acoustics.<br><br>
+      We'll get back to you in <span class="hl2">3–5 business eternities.</span> Please keep your soul on hold.
+    </p>
+    <button class="back-btn" onclick="goTo('home')">← Please take me back</button>
+  </div>
+</div>
+
+<!-- SHOP -->
+<div class="page" id="page-shop">
+  <div class="sub-page-content">
+    <span class="sub-emoji">🛒</span>
+    <h2 class="sub-title">You can't buy vibes. We checked.</h2>
+    <p class="sub-desc">
+      Our shop has <span class="hl3">0 products</span>, a 5-star rating, and suspiciously fast shipping for nothing.<br><br>
+      We considered selling "Under Construction" merchandise, but that felt a little too on-brand even for us.<br><br>
+      Cart total: <span class="hl">your hopes and dreams</span> (currently out of stock, no ETA, don't ask).
+    </p>
+    <button class="back-btn" onclick="goTo('home')">← I'd like a refund</button>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<div class="page" id="page-portfolio">
+  <div class="sub-page-content">
+    <span class="sub-emoji">🖼️</span>
+    <h2 class="sub-title">You're literally looking at it.</h2>
+    <p class="sub-desc">
+      Our portfolio is this page. Yes. This one. The under-construction one.<br><br>
+      We spent <span class="hl2">a genuinely concerning amount of time</span> making this look good and we will not be taking criticism at this time.<br><br>
+      Previous works: <span class="hl">staring at blank screens</span>, an impressive collection of 200 browser tabs, and a README.md that just says "TODO".
+    </p>
+    <button class="back-btn" onclick="goTo('home')">← Back to the masterpiece</button>
+  </div>
+</div>
+
+<script>
+// STARS
+const starsEl = document.getElementById('stars');
+for(let i=0;i<130;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  const sz=Math.random()<.08?3:Math.random()<.25?2:1;
+  s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--op:${(.1+Math.random()*.7).toFixed(2)};--d:${(2+Math.random()*4).toFixed(1)}s;--dl:${(Math.random()*5).toFixed(1)}s`;
+  starsEl.appendChild(s);
+}
+
+// ROUTING
+function goTo(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const t=document.getElementById('page-'+page);
+  if(t)t.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// SASSY MESSAGES
+const msgs=[
+  '"Come back never. Just kidding. Maybe. Probably not."',
+  '"Estimated launch: yes."',
+  '"Our designer quit. We\'re fine. Everything is fine. 🔥"',
+  '"Currently in beta. Beta as in \'barely exists\'."',
+  '"Dev said it\'ll be ready by Friday. That was 11 Fridays ago."',
+  '"Error 404: website not found. We can relate on a personal level."',
+  '"Powered by caffeine, chaos, and Stack Overflow."',
+  '"Please hold. Your website is very important to us."',
+  '"We promise it\'ll look great. Eventually. Probably."',
+  '"If you can read this, the CSS is working. Small wins."',
+  '"Perfection takes time. We\'re aiming for \'technically exists\'."',
+  '"The intern pushed to prod. We don\'t have an intern."',
+];
+let mIdx=Math.floor(Math.random()*msgs.length);
+const sassyEl=document.getElementById('sassyMsg');
+sassyEl.textContent=msgs[mIdx];
+setInterval(()=>{
+  mIdx=(mIdx+1)%msgs.length;
+  sassyEl.style.animation='none';
+  void sassyEl.offsetWidth;
+  sassyEl.style.animation='fadeM .5s ease';
+  sassyEl.textContent=msgs[mIdx];
+},4200);
+
+// PROGRESS BAR
+let pct=2+Math.random()*5;
+let clickCount=0;
+let bugCount=0;
+let specialTriggered=new Set();
+const fill=document.getElementById('progressFill');
+const pctLabel=document.getElementById('pctLabel');
+const progressHint=document.getElementById('progressHint');
+
+const clickMsgs=[
+  "Oops! That went the wrong way. 😬",
+  "You clicked it backwards somehow.",
+  "The bar sensed your energy. It didn't like it.",
+  "Have you tried NOT clicking?",
+  "Each click costs 2% morale.",
+  "Our intern saw that. They're disappointed.",
+  "Sir/Ma'am, this is a Wendy's.",
+  "STOP. You're making it worse.",
+  "We are going to be here all day.",
+  "The progress bar has filed a complaint with HR.",
+];
+
+function setHint(msg, ms=4000){
+  progressHint.textContent=msg;
+  if(ms) setTimeout(()=>progressHint.textContent='Click to "help" with development 👆',ms);
+}
+
+function updateProgress(v){
+  pct=Math.max(0,Math.min(100,v));
+  fill.style.width=pct.toFixed(1)+'%';
+  pctLabel.textContent=pct.toFixed(1)+'%';
+  // Color shift
+  if(pct>80){fill.style.background='linear-gradient(90deg,#f500c8,#ff6b6b)';pctLabel.style.color='#f500c8';}
+  else if(pct>50){fill.style.background='linear-gradient(90deg,#ffd93d,#00d9f5)';pctLabel.style.color='#ffd93d';}
+  else{fill.style.background='linear-gradient(90deg,var(--neon),var(--neon2))';pctLabel.style.color='var(--neon)';}
+  // Easter egg milestones
+  checkMilestones();
+}
+
+function checkMilestones(){
+  const milestones=[
+    {at:13,range:1.2,fn:()=>{ showToast('⛧ 13%... the bar is scared.'); setHint('(the bar is shivering)'); }},
+    {at:42,range:1.5,fn:()=>{ showEaster('🌌 42%!','The answer to life, the universe, and this progress bar is 42. Unfortunately it does not tell us when the website will be done.'); setHint('The answer was here all along'); }},
+    {at:69,range:1.2,fn:()=>{ showToast('👀 69%. Nice.'); setHint('n i c e',5000); }},
+    {at:100,range:.5,fn:()=>{
+      if(specialTriggered.has(100))return;
+      specialTriggered.add(100);
+      launchConfetti();
+      showEaster('🎊 IT\'S DONE! (just kidding)','Congratulations! You\'ve somehow gotten the progress bar to 100%. Unfortunately the website is still not done. The bar was lying. It does that. We apologize for nothing.');
+      setTimeout(()=>{ updateProgress(1); specialTriggered.delete(100); setHint('...back to square one. Naturally.',5000); },8000);
+    }},
+  ];
+  milestones.forEach(m=>{
+    const key='m'+m.at;
+    if(!specialTriggered.has(key)&&Math.abs(pct-m.at)<m.range){
+      specialTriggered.add(key);
+      m.fn();
+      setTimeout(()=>specialTriggered.delete(key),15000);
+    }
+  });
+}
+
+function clickProgress(){
+  clickCount++;
+  const drop=1.5+Math.random()*3.5;
+  updateProgress(pct-drop);
+  showToast(clickMsgs[(clickCount-1)%clickMsgs.length]);
+}
+
+function dblClickProgress(){
+  updateProgress(0);
+  showToast('🔥 COMPLETE RESET. Starting from zero. Again. This is fine.');
+  setHint('...are you happy now?');
+}
+
+updateProgress(pct);
+
+// Auto-increment: slow crawl with occasional bug regressions
+setInterval(()=>{
+  const r=Math.random();
+  if(r<.06){
+    bugCount++;
+    const drop=.8+Math.random()*2.5;
+    updateProgress(pct-drop);
+    const bugMsgs=['🐛 Bug found. Progress regressed.','🐛 Untested code just shipped.','🐛 Someone force-pushed to main.','🐛 Dependency updated. Everything broke.'];
+    showToast(bugMsgs[Math.floor(Math.random()*bugMsgs.length)]);
+  } else if(r<.1){
+    showToast('⏳ Dev distracted by meme. Standby.');
+  } else {
+    updateProgress(pct+0.07+Math.random()*0.06);
+  }
+},3200);
+
+// HARD HAT MELTDOWN
+let hatClicks=0;
+let meltdownActive=false;
+const hatEl=document.getElementById('hardHat');
+const hatEmoji=['👷','🤔','😐','😑','😤','😡','🤬','🤯','💀'];
+
+function hitHardHat(){
+  hatClicks++;
+  hatEl.classList.remove('shake');
+  void hatEl.offsetWidth;
+  hatEl.classList.add('shake');
+  hatEl.textContent=hatEmoji[Math.min(hatClicks,hatEmoji.length-1)];
+  if(hatClicks===3) showToast('The hard hat is not a toy.');
+  if(hatClicks===5) showToast('I am warning you...');
+  if(hatClicks===7) showToast('That\'s it. You asked for it.');
+  if(hatClicks>=8&&!meltdownActive){
+    meltdownActive=true;
+    document.body.classList.add('meltdown');
+    showToast('🚨 MELTDOWN INITIATED. HAPPY NOW??');
+    hatEl.textContent='🔥';
+    setTimeout(()=>{
+      document.body.classList.remove('meltdown');
+      hatEl.textContent='👷';
+      hatClicks=0;
+      meltdownActive=false;
+      showToast('...okay we\'re back. Don\'t do that again. Please.');
+    },4500);
+  }
+}
+
+// TOAST
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3600);
+}
+
+// EASTER EGG OVERLAY
+function showEaster(title,text){
+  document.getElementById('easterTitle').textContent=title;
+  document.getElementById('easterText').textContent=text;
+  document.getElementById('easterOverlay').classList.add('show');
+}
+function closeEaster(){
+  document.getElementById('easterOverlay').classList.remove('show');
+}
+
+// KONAMI CODE
+const konami=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+let ki=0;
+document.addEventListener('keydown',e=>{
+  if(e.key===konami[ki]){ki++;if(ki===konami.length){ki=0;showEaster('🕹️ CHEAT CODE ACTIVATED','You entered the Konami code on an under-construction page. That dedication is both impressive and deeply concerning. Unfortunately this does not unlock anything. The website is still ~3% done. But you get our eternal respect. ↑↑↓↓←→←→BA');}}
+  else ki=0;
+});
+
+// HIDDEN LINK
+function triggerHidden(){
+  showEaster('🕵️ MASTER DETECTIVE','You found the invisible link in the bottom-right corner. Most people scroll right past it. You, however, have the eyes of a hawk and the free time of someone who should probably go outside. We salute you sincerely.');
+}
+
+// CONFETTI
+function launchConfetti(){
+  const wrap=document.getElementById('confettiWrap');
+  const cols=['#00f5a0','#00d9f5','#f500c8','#ffd93d','#ff6b6b','#ffffff','#6bcb77'];
+  for(let i=0;i<90;i++){
+    const c=document.createElement('div');
+    c.className='cp';
+    const sz=6+Math.random()*9;
+    c.style.cssText=`left:${Math.random()*100}%;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${1.4+Math.random()*2}s;animation-delay:${Math.random()*.8}s;width:${sz}px;height:${sz}px;border-radius:${Math.random()<.5?'50%':'3px'}`;
+    wrap.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+
+// CONSOLE EGG
+console.log('%c👷 HEY, YOU.','color:#00f5a0;font-size:2.2rem;font-weight:900');
+console.log('%cYes you — snooping in the dev tools.','color:#00d9f5;font-size:1rem');
+console.log('%cWe respect the hustle. The site is under construction, not the console.','color:#888;font-size:.9rem');
+console.log('%cHint: try the Konami code on the page → ↑↑↓↓←→←→BA','color:#f500c8;font-size:.85rem');
+console.log('%cAnother hint: there\'s something invisible in the bottom-right corner.','color:#ffd93d;font-size:.8rem');
+</script>
+</body>
+</html>
